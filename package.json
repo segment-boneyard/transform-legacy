@@ -1,5 +1,5 @@
 {
-  "name": "transform-legacy",
+  "name": "segmentio-transform-legacy",
   "repo": "segmentio/transform-legacy",
   "version": "1.0.0",
   "dependencies": {
