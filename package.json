@@ -1,7 +1,7 @@
 {
   "name": "transform-legacy",
   "repo": "segmentio/transform-legacy",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "dependencies": {
     "clone": "~0.1.11"
   },
