@@ -32,15 +32,22 @@ describe('transform(msg)', function(){
     })
   })
 
+  describe('action', function(){
+    it('.type -> .action', function(){
+      var msg = message({ type: 'foo' });
+      assert(msg.type == transform(msg).action);
+    });
+  });
+
   describe('alias', function(){
     it('.previousId -> .from', function(){
-      var msg = message({ previousId: 'baz', action: 'alias' });
+      var msg = message({ previousId: 'baz', type: 'alias' });
       assert(msg.previousId == transform(msg).from);
       assert(msg.previousId == transform(msg).previousId);
 
     })
     it('.userId -> .to', function(){
-      var msg = message({ userId: 'baz', action: 'alias' });
+      var msg = message({ userId: 'baz', type: 'alias' });
       assert(msg.userId == transform(msg).to);
       assert(msg.userId == transform(msg).userId);
     })
