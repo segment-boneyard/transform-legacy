@@ -34,8 +34,8 @@ describe('transform(msg)', function(){
 
   describe('action', function(){
     it('.type -> .action', function(){
-      var msg = message({ type: 'foo' });
-      assert(msg.type == transform(msg).action);
+      var msg = message({ type: 'track' });
+      assert('Track' == transform(msg).action);
     });
   });
 
