@@ -1,5 +1,6 @@
 
 module.exports = {
+  version: 2,
   integrations: {
     'Google Analytics': false,
      Bugsnag: false,
