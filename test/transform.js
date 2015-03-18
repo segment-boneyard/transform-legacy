@@ -5,7 +5,7 @@ var fixtures = require('./fixtures')
 
 describe('transform(msg)', function(){
   it('should clone', function(){
-    var msg = { version: 1, context: {} };
+    var msg = { version: 2, context: {} };
     assert(msg != transform(msg));
   })
 
@@ -16,38 +16,38 @@ describe('transform(msg)', function(){
 
   describe('options', function(){
     it('should clone .context if available', function(){
-      var msg = { version: 1, context: {} };
+      var msg = { version: 2, context: {} };
       assert(transform(msg).options);
       assert(msg.context != transform(msg).options);
     })
 
     it('should clone use .options if available', function(){
-      var msg = { version: 1, options: {} };
+      var msg = { version: 2, options: {} };
       assert(transform(msg).options);
       assert(transform(msg).options != msg.options);
     })
 
     it('should use a new object if .context and .options are missing', function(){
-      assert(transform({ version: 1 }).options)
+      assert(transform({ version: 2 }).options)
     })
   })
 
   describe('action', function(){
     it('.type -> .action', function(){
-      var msg = message({ type: 'track' });
+      var msg = message({ version: 2, type: 'track' });
       assert('Track' == transform(msg).action);
     });
   });
 
   describe('alias', function(){
     it('.previousId -> .from', function(){
-      var msg = message({ previousId: 'baz', type: 'alias' });
+      var msg = message({ version: 2, previousId: 'baz', type: 'alias' });
       assert(msg.previousId == transform(msg).from);
       assert(msg.previousId == transform(msg).previousId);
 
     })
     it('.userId -> .to', function(){
-      var msg = message({ userId: 'baz', type: 'alias' });
+      var msg = message({ version: 2, userId: 'baz', type: 'alias' });
       assert(msg.userId == transform(msg).to);
       assert(msg.userId == transform(msg).userId);
     })
@@ -55,7 +55,7 @@ describe('transform(msg)', function(){
 
   describe('.sessionId', function(){
     it('.anonymousId -> .sessionId', function(){
-      var msg = message({ anonymousId: 'id' });
+      var msg = message({ version: 2, anonymousId: 'id' });
       assert('id' == transform(msg).sessionId);
       assert('id' == transform(msg).anonymousId);
     })
@@ -63,7 +63,7 @@ describe('transform(msg)', function(){
 
   describe('.options.providers', function(){
     it('.integrations -> .options.integrations', function(){
-      var msg = message({ integrations: { key: 1 } });
+      var msg = message({ version: 2, integrations: { key: 1 } });
       var t = transform(msg);
       assert(1 == t.integrations.key);
       assert(1 == t.options.providers.key);
@@ -72,7 +72,7 @@ describe('transform(msg)', function(){
 
   describe('.context.library', function(){
     it('.context.library.name -> .options.library', function(){
-      var msg = message({ context: { library: 'baz' } });
+      var msg = message({ version: 2, context: { library: 'baz' } });
       var t = transform(msg);
       assert('baz' == t.options.library);
     })
@@ -80,7 +80,7 @@ describe('transform(msg)', function(){
 
   describe('library = analytics.js', function(){
     it('analytics.js -> segment.js', function(){
-      var msg = message({ context: { library: 'analytics.js' } });
+      var msg = message({ version: 2, context: { library: 'analytics.js' } });
       var t = transform(msg);
       assert('segment.js' == t.options.library);
     })

@@ -1,5 +1,6 @@
 
 module.exports = {
+  version: 2,
   integrations: {
     "Tapstream": false,
     "Amplitude": false,
