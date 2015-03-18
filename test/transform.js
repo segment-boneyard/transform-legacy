@@ -86,6 +86,26 @@ describe('transform(msg)', function(){
     })
   })
 
+  describe('version', function(){
+    it('should convert v2 messages', function(){
+      var msg = message({ version: 2, userId: 'baz', type: 'alias' });
+      var t = transform(msg);
+      assert(msg != transform(msg));
+    });
+  
+    it('should not convert v1 messages', function(){
+      var msg = message({ version: 1, anonymousId: 'baz', type: 'track' });
+      var t = transform(msg);
+      assert(t == msg);
+    })
+
+    it('should change .version', function(){
+      var msg = message({ version: 2, type: 'identify', userId: 'foo' });
+      var t = transform(msg);
+      assert(1 == t.version);
+    })
+  })
+
   describe('android', function(){
     it('should update .options using new .context', function(){
       var spec = message(fixtures.android.spec);
